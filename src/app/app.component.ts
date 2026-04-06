@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { PokemonFormComponent } from "./pokemon-form/pokemon-form.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [PokemonFormComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
