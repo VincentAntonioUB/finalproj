@@ -1,5 +1,5 @@
 import { Component, inject, ChangeDetectionStrategy, signal, OnInit } from '@angular/core';
-import { PokemonService } from '../pokemon.service';
+import { PokemonService, AttendanceRecord } from '../pokemon.service';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 
 @Component({
@@ -11,28 +11,70 @@ import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 })
 export class PokemonFormComponent implements OnInit{
   private formBuilder = inject(FormBuilder);
-    pokemonForm = this.formBuilder.nonNullable.group({
-        name: ['', Validators.required],
-        type: ['', Validators.required],
-        level: ['', Validators.required, Validators.min(1)],
-        nature: ['', Validators.required],
+    attendanceForm = this.formBuilder.nonNullable.group({
+        studentName: ['', Validators.required],
+        studentId: ['', Validators.required],
+        status: this.formBuilder.nonNullable.control<AttendanceRecord['status']>('Present', Validators.required),
+        remarks: [''],
     })
 
 pokemonService = inject(PokemonService);
-ngOnInit(){
-  this.pokemonService.fetchPokemon();
-}
-onSubmit(){
-  if(this.pokemonForm.invalid) return;
+editingId = signal<string | null>(null);
 
-  const data = this.pokemonForm.getRawValue();
-  this.pokemonService.savePokemon(data).subscribe({
-    
+ngOnInit(){
+  this.pokemonService.fetchAttendance();
+}
+
+onSubmit(){
+  if(this.attendanceForm.invalid) return;
+
+  const data = this.attendanceForm.getRawValue() as AttendanceRecord;
+  const currentId = this.editingId();
+  const request = currentId
+    ? this.pokemonService.updateAttendance(currentId, data)
+    : this.pokemonService.createAttendance(data);
+
+  request.subscribe({
     next: () => {
-      this.pokemonService.fetchPokemon();
-      this.pokemonForm.reset();
+      this.pokemonService.fetchAttendance();
+      this.resetForm();
     },
-    error: (err) => console.error("Save Failed", err)
-  })
+    error: (err) => console.error('Save failed', err)
+  });
+}
+
+startEdit(record: AttendanceRecord) {
+  this.editingId.set(record._id || null);
+  this.attendanceForm.patchValue({
+    studentName: record.studentName,
+    studentId: record.studentId,
+    status: record.status,
+    remarks: record.remarks || ''
+  });
+}
+
+deleteRecord(id?: string) {
+  if (!id) return;
+  this.pokemonService.deleteAttendance(id).subscribe({
+    next: () => this.pokemonService.fetchAttendance(),
+    error: (err) => console.error('Delete failed', err)
+  });
+}
+
+resetForm() {
+  this.editingId.set(null);
+  this.attendanceForm.reset({
+    studentName: '',
+    studentId: '',
+    status: 'Present',
+    remarks: ''
+  });
+}
+
+formatAttendanceDate(dateValue?: string) {
+  if (!dateValue) return 'No timestamp';
+  const parsedDate = new Date(dateValue);
+  if (Number.isNaN(parsedDate.getTime())) return 'Invalid timestamp';
+  return parsedDate.toLocaleString();
 }
 }

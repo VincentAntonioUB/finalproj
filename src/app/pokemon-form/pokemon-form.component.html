@@ -1,44 +1,52 @@
 <div class="pokedex-container">
-    <h2>Register Pokemon</h2>
-    <form [formGroup]="pokemonForm" (ngSubmit) = "onSubmit()" class="pokemon-form">
+    <h2>Attendance Monitoring System</h2>
+    <form [formGroup]="attendanceForm" (ngSubmit) = "onSubmit()" class="pokemon-form">
 
         <div class="form-group">
-            <label for="name">Pokemon Name:</label>
-            <input type="text" id = "name" formControlName = "name" placeholder="e. g. Pikachu">
+            <label for="studentName">Student Name:</label>
+            <input type="text" id = "studentName" formControlName = "studentName" placeholder="e.g. Juan Dela Cruz">
         </div>
 
         <div class="form-group">
-            <label for="level">Pokemon level:</label>
-            <input type="text" id = "level" formControlName = "level" placeholder="level">
+            <label for="studentId">Student ID:</label>
+            <input type="text" id = "studentId" formControlName = "studentId" placeholder="e.g. 20240001">
         </div>
 
         <div class="form-group">
-            <label for="nature">Pokemon Nature:</label>
-            <input type="text" id = "nature" formControlName = "nature" placeholder="e. g. modest">
+            <label for="status">Status:</label>
+            <select id="status" formControlName="status">
+                <option value="Present">Present</option>
+                <option value="Absent">Absent</option>
+                <option value="Late">Late</option>
+            </select>
         </div>
 
         <div class="form-group">
-            <label for="type">Pokemon Type:</label>
-            <input type="text" id = "type" formControlName = "type" placeholder="e. g. Electric">
+            <label for="remarks">Remarks:</label>
+            <input type="text" id = "remarks" formControlName = "remarks" placeholder="Optional note">
         </div>
 
         <div class="form-action">
-            <button type="submit" [disabled] = "pokemonForm.invalid" class = "btn-submit">Catch Pokemon</button>
+            <button type="submit" [disabled] = "attendanceForm.invalid" class = "btn-submit">
+                {{ editingId() ? 'Update Record' : 'Add Record' }}
+            </button>
+            <button type="button" (click)="resetForm()">Clear</button>
         </div>
     </form>
 </div>
 
 <hr/>
 
-<h3>Current Pokedex</h3>
+<h3>Attendance Records</h3>
 <div class="pokemon-grid">
-    @for(p of pokemonService.pokemonList(); track p._id){
+    @for(record of pokemonService.attendanceList(); track record._id){
         <div class="pokemon-card">
             <div class="card-info">
-                <strong>name: {{p.name}}</strong>
-                <span>level: {{p.level}}</span>
-                <p>Type: {{p.type}} | Natrue: {{p.nature}}</p>
-
+                <strong>{{record.studentName}} ({{record.studentId}})</strong>
+                <span>{{formatAttendanceDate(record.attendanceAt)}} - {{record.status}}</span>
+                <p>Remarks: {{record.remarks || 'None'}}</p>
+                <button type="button" (click)="startEdit(record)">Edit</button>
+                <button type="button" (click)="deleteRecord(record._id)">Delete</button>
             </div>
         </div>
     }
