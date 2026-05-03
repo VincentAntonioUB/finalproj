@@ -1,0 +1,51 @@
+.page-container {
+  max-width: 760px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
+}
+
+h2 {
+  margin: 0 0 1rem;
+  color: #0f172a;
+}
+
+.records-grid {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.record-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0.9rem;
+  background: #f8fafc;
+}
+
+.card-info {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.card-info span {
+  color: #475569;
+  font-size: 0.92rem;
+}
+
+.card-info p {
+  margin: 0.2rem 0 0.5rem;
+  color: #334155;
+}
+
+button {
+  border: none;
+  border-radius: 8px;
+  padding: 0.55rem 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: #ef4444;
+  color: #ffffff;
+  width: fit-content;
+}

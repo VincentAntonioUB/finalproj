@@ -1,0 +1,20 @@
+<div class="page-container">
+  <h2>My attendance history</h2>
+  @if (auth.user(); as u) {
+    <p class="subhead">{{ u.studentName }} · ID {{ u.studentId }}</p>
+  }
+
+  @if (!pokemonService.myAttendance().length) {
+    <p class="empty">No attendance rows yet. Ask your instructor to record attendance, or use the same Student ID at the kiosk.</p>
+  } @else {
+    <div class="records-grid">
+      @for (record of pokemonService.myAttendance(); track record._id) {
+        <div class="record-card">
+          <strong>{{ formatAttendanceDate(record.attendanceAt) }}</strong>
+          <span class="status">{{ record.status }}</span>
+          <p class="remarks">Remarks: {{ record.remarks || 'None' }}</p>
+        </div>
+      }
+    </div>
+  }
+</div>

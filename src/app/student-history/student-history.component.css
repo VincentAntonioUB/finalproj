@@ -1,0 +1,49 @@
+.page-container {
+  max-width: 760px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
+}
+
+h2 {
+  margin: 0 0 0.35rem;
+  color: #0f172a;
+}
+
+.subhead {
+  margin: 0 0 1.25rem;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+.empty {
+  color: #64748b;
+  margin: 0;
+}
+
+.records-grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.record-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 1rem;
+  background: #f8fafc;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.status {
+  font-weight: 700;
+  color: #1e40af;
+}
+
+.remarks {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #475569;
+}

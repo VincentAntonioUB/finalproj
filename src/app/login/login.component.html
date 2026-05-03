@@ -1,0 +1,68 @@
+<div class="page-container">
+  <h2>Sign in</h2>
+
+  <div class="mode-tabs">
+    <button type="button" [class.active]="mode() === 'student'" (click)="setMode('student')">Student</button>
+    <button type="button" [class.active]="mode() === 'admin'" (click)="setMode('admin')">Admin</button>
+  </div>
+
+  @if (errorMessage(); as err) {
+    <p class="msg msg-error">{{ err }}</p>
+  }
+
+  @if (mode() === 'student') {
+    <form [formGroup]="studentForm" (ngSubmit)="submitStudent()" class="stack-form">
+      <div class="form-group">
+        <label for="loginStudentId">Student ID</label>
+        <input id="loginStudentId" type="text" formControlName="studentId" autocomplete="username" />
+      </div>
+      <div class="form-group">
+        <label for="loginStudentPw">Password</label>
+        <input id="loginStudentPw" type="password" formControlName="password" autocomplete="current-password" />
+      </div>
+      <button type="submit" class="btn-primary" [disabled]="studentForm.invalid">Sign in as student</button>
+    </form>
+
+    <div class="register-section">
+      <button type="button" class="btn-link" (click)="toggleRegister()">
+        {{ registerOpen() ? 'Hide' : 'New student?' }} Create an account
+      </button>
+      @if (registerOpen()) {
+        @if (registerMessage(); as rm) {
+          <p class="msg" [class.msg-error]="rm.includes('failed') || rm.includes('already')" [class.msg-ok]="!rm.includes('failed') && !rm.includes('already')">
+            {{ rm }}
+          </p>
+        }
+        <form [formGroup]="registerForm" (ngSubmit)="submitRegister()" class="stack-form register-form">
+          <div class="form-group">
+            <label for="regStudentId">Student ID</label>
+            <input id="regStudentId" type="text" formControlName="studentId" />
+          </div>
+          <div class="form-group">
+            <label for="regName">Full name</label>
+            <input id="regName" type="text" formControlName="studentName" />
+          </div>
+          <div class="form-group">
+            <label for="regPw">Password</label>
+            <input id="regPw" type="password" formControlName="password" autocomplete="new-password" />
+          </div>
+          <button type="submit" class="btn-secondary" [disabled]="registerForm.invalid">Register</button>
+        </form>
+      }
+    </div>
+  } @else {
+    <form [formGroup]="adminForm" (ngSubmit)="submitAdmin()" class="stack-form">
+      <div class="form-group">
+        <label for="adminUser">Username</label>
+        <input id="adminUser" type="text" formControlName="username" autocomplete="username" />
+      </div>
+      <div class="form-group">
+        <label for="adminPw">Password</label>
+        <input id="adminPw" type="password" formControlName="password" autocomplete="current-password" />
+      </div>
+      <button type="submit" class="btn-primary" [disabled]="adminForm.invalid">Sign in as admin</button>
+    </form>
+  }
+
+  <p class="hint"><a routerLink="/attendance-input">Continue to attendance kiosk</a> (no login required to submit attendance).</p>
+</div>

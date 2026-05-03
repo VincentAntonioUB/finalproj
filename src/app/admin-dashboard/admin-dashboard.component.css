@@ -1,0 +1,136 @@
+.page-container {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
+}
+
+h2 {
+  margin: 0 0 0.35rem;
+  color: #0f172a;
+}
+
+.subhead {
+  margin: 0 0 1.25rem;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-end;
+  margin-bottom: 1.25rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+.filter-field {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 160px;
+}
+
+.filter-field:first-child {
+  flex: 1;
+  min-width: 220px;
+}
+
+label {
+  font-weight: 600;
+  color: #334155;
+  font-size: 0.85rem;
+}
+
+select,
+input[type='date'] {
+  padding: 0.55rem 0.65rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background: #ffffff;
+}
+
+.filter-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+button {
+  border: none;
+  border-radius: 8px;
+  padding: 0.55rem 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.btn-muted {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.btn-danger {
+  background: #fecaca;
+  color: #991b1b;
+  font-size: 0.8rem;
+  padding: 0.35rem 0.55rem;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.data-table th,
+.data-table td {
+  padding: 0.65rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.data-table th {
+  background: #f1f5f9;
+  font-weight: 700;
+  color: #334155;
+}
+
+.data-table tbody tr:hover {
+  background: #fafafa;
+}
+
+.empty-cell {
+  text-align: center;
+  color: #64748b;
+  padding: 1.5rem;
+}
+
+.pill {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: #1e40af;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.cell-actions {
+  white-space: nowrap;
+}

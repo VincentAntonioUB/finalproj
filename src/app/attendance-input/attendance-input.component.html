@@ -1,0 +1,33 @@
+<div class="page-container">
+  <h2>Attendance Input</h2>
+  <form [formGroup]="attendanceForm" (ngSubmit)="onSubmit()" class="attendance-form">
+    <div class="form-group">
+      <label for="studentName">Student Name:</label>
+      <input type="text" id="studentName" formControlName="studentName" placeholder="e.g. Juan Dela Cruz">
+    </div>
+
+    <div class="form-group">
+      <label for="studentId">Student ID:</label>
+      <input type="text" id="studentId" formControlName="studentId" placeholder="e.g. 20240001">
+    </div>
+
+    <div class="form-group">
+      <label for="status">Status:</label>
+      <select id="status" formControlName="status">
+        <option value="Present">Present</option>
+        <option value="Absent">Absent</option>
+        <option value="Late">Late</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="remarks">Remarks:</label>
+      <input type="text" id="remarks" formControlName="remarks" placeholder="Optional note">
+    </div>
+
+    <div class="form-action">
+      <button type="submit" [disabled]="attendanceForm.invalid" class="btn-submit">Add Record</button>
+      <button type="button" (click)="resetForm()">Clear</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,16 @@
+<div class="page-container">
+  <h2>Attendance Records</h2>
+
+  <div class="records-grid">
+    @for (record of pokemonService.attendanceList(); track record._id) {
+      <div class="record-card">
+        <div class="card-info">
+          <strong>{{ record.studentName }} ({{ record.studentId }})</strong>
+          <span>{{ formatAttendanceDate(record.attendanceAt) }} - {{ record.status }}</span>
+          <p>Remarks: {{ record.remarks || 'None' }}</p>
+          <button type="button" (click)="deleteRecord(record._id)">Delete</button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

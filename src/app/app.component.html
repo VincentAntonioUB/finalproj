@@ -1,1 +1,17 @@
-<app-pokemon-form/>
+<nav class="top-nav">
+  @if (auth.user(); as u) {
+    @if (u.role === 'student') {
+      <a routerLink="/student-history" routerLinkActive="active-link">My history</a>
+    }
+    @if (u.role === 'admin') {
+      <a routerLink="/admin" routerLinkActive="active-link">Admin dashboard</a>
+    }
+    <a routerLink="/attendance-input" routerLinkActive="active-link">Attendance input</a>
+    <button type="button" class="nav-btn" (click)="logout()">Log out</button>
+  } @else {
+    <a routerLink="/login" routerLinkActive="active-link">Log in</a>
+    <a routerLink="/attendance-input" routerLinkActive="active-link">Attendance input</a>
+  }
+</nav>
+
+<router-outlet />
